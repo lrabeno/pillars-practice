@@ -22,8 +22,8 @@ Please read the Academic Integrity Policy (`pillars-academic-integrity-policy.md
 - Read the REQUIREMENTS.md
 - Clone your fork to your local machine.
 - Make sure your Postgres database is running!
-- Create two databases:
-  - Test Database: `createdb pillars_practice_test`
+- Create database:
+  - `createdb pillars_practice_test`
 - `npm install`
 - You can run `npm run test-dev` (windows users can run `npm run test-windows`) which will run the test suite continuously (`npm test` runs the tests only once).
 
