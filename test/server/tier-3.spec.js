@@ -1,5 +1,4 @@
 const { expect } = require('chai');
-const { cyan } = require('chalk');
 const {
   db,
   models: { Place },

@@ -1,5 +1,4 @@
 const { expect } = require('chai');
-const { cyan } = require('chalk');
 const {
   db,
   models: { Place },
@@ -19,7 +18,7 @@ describe('Tier 1: Basic Fields, Class Methods, GET Routes', () => {
         it('place_name is a string', async () => {
           const nyc = await Place.create({ place_name: 'NYC' });
           expect(nyc.place_name).to.equal(
-            'NYC',
+           'NYC',
             'Was not able to create a place with place_name NYC'
           );
         });
@@ -27,33 +26,49 @@ describe('Tier 1: Basic Fields, Class Methods, GET Routes', () => {
         xit('name must be unique', async () => {
           // We shouldn't be able to create two places with same place_name.
           await Place.create({ place_name: 'NYC' });
-          await expect(
-            Place.create({ place_name: 'NYC' }),
-            "Shouldn't be able to create two places with same place_name"
-          ).to.be.rejected;
+          try {
+            await Place.create({ place_name: 'NYC' });
+            throw 'noooo';
+          }
+          catch(ex){
+            expect(ex.errors.length).to.equal(1);
+            expect(ex.errors[0].path).to.equal('place_name');
+          }
         });
 
         xit('name cannot be null', async () => {
           // We shouldn't be able to create a place without a place_name 
-          await expect(
-            Place.create({}),
-            "We shouldn't be able to create a place without a place_name"
-          ).to.be.rejected;
+          try {
+            await Place.create({ });
+            throw 'noooo';
+          }
+          catch(ex){
+            expect(ex.errors.length).to.equal(1);
+            expect(ex.errors[0].path).to.equal('place_name');
+          }
         });
 
         xit('place_name cannot be an empty string', async () => {
           // We also shouldn't be able to create a Place with an empty place_name.
-          await expect(
-            Place.create({ place_name: '' }),
-            "We shouldn't be able to create a place with an empty name"
-          ).to.be.rejected;
+          try {
+            await Place.create({ place_name: ''});
+            throw 'noooo';
+          }
+          catch(ex){
+            expect(ex.errors.length).to.equal(1);
+            expect(ex.errors[0].path).to.equal('place_name');
+          }
         });
         xit('place_name cannot be a made of just spaces', async () => {
           // We also shouldn't be able to create a Place with place_name made of spaces 
-          await expect(
-            Place.create({ place_name: '   ' }),
-            "We shouldn't be able to create a place with an empty name"
-          ).to.be.rejected;
+          try {
+            await Place.create({ place_name: '   '});
+            throw 'noooo';
+          }
+          catch(ex){
+            expect(ex.errors.length).to.equal(1);
+            expect(ex.errors[0].path).to.equal('place_name');
+          }
         });
       });
 
@@ -74,22 +89,27 @@ describe('Tier 1: Basic Fields, Class Methods, GET Routes', () => {
         });
 
         xit('category cannot be null', async () => {
-          const nys = Place.create({ place_name: 'New York State', category: null });
-          await expect(
-            nys,
-            "We shouldn't be able to create a place without a category of null"
-          ).to.be.rejected;
+          try {
+            const nys = await Place.create({ place_name: 'New York State', category: null });
+            throw 'noooo';
+          }
+          catch(ex){
+            expect(ex.errors.length).to.equal(1);
+            expect(ex.errors[0].path).to.equal('category');
+          }
         });
 
         xit('category can ONLY be either "CITY", "STATE", "COUNTRY"', async () => {
-          const playground = Place.create({
+          try {
+            await Place.create({
             place_name: 'playground',
             category: 'PLAYGROUND', // Invalid category! This promise should reject.
           });
-          await expect(
-            playground,
-            "We shouldn't be able to create a place with an invalid category"
-          ).to.be.rejected;
+            throw 'noooo';
+          }
+          catch(ex){
+            expect(ex).to.not.equal('noooo');
+          }
         });
       });
     });
