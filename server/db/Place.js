@@ -16,6 +16,21 @@ const Place = db.define("place", {
     defaultValue: "STATE",
     allowNull: false,
   },
+  isState: {
+    type: Sequelize.VIRTUAL,
+    // defaultValue: true,
+    get() {
+      return this.getDataValue("category") === "STATE";
+    },
+  },
+  nickname: {
+    type: Sequelize.VIRTUAL,
+    // defaultValue: true,
+    get() {
+      let names = this.getDataValue("place_name").split(" ");
+      return names.map((name) => name[0].toUpperCase()).join("");
+    },
+  },
 });
 
 /**
