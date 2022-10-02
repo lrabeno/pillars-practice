@@ -43,4 +43,13 @@ Place.findCitiesWithNoParent = async () => {
   });
 };
 
+Place.findStatesWithCities = async () => {
+  return await Place.findAll({
+    where: {
+      category: "STATE",
+    },
+    include: [{ model: Place, as: "children" }],
+  });
+};
+
 module.exports = Place;

@@ -7,12 +7,12 @@ const {
 //
 
 router.get("/unassigned", async (req, res, next) => {
-  const unassigned = await Place.findAll({
-    where: {
-      category: "CITY",
-      parentId: null,
-    },
-  });
+  const unassigned = await Place.findCitiesWithNoParent();
   res.send(unassigned);
+});
+
+router.get("/states", async (req, res, next) => {
+  const statesWithCities = await Place.findStatesWithCities();
+  res.send(statesWithCities);
 });
 module.exports = router;
