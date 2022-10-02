@@ -4,6 +4,11 @@ const db = require("./db");
 const Place = db.define("place", {
   place_name: {
     type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
 });
 
