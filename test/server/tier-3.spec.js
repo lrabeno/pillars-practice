@@ -65,7 +65,7 @@ describe("Tier 3: Virtual Fields, Route Parameters, DELETE Routes", () => {
     });
 
     describe("DELETE /api/places/:id", () => {
-      xit("deletes an existing place by its id", async () => {
+      it("deletes an existing place by its id", async () => {
         const response = await app.delete(`/api/places/${nyc.id}`);
         expect(response.status).to.equal(204);
         nyc = await Place.findByPk(nyc.id);
@@ -75,7 +75,7 @@ describe("Tier 3: Virtual Fields, Route Parameters, DELETE Routes", () => {
         ).to.equal(null);
       });
 
-      xit("responds with 404 if the place does not exist", async () => {
+      it("responds with 404 if the place does not exist", async () => {
         const response = await app.delete("/api/places/121");
         expect(response.status).to.equal(404);
       });

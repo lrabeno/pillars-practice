@@ -15,4 +15,19 @@ router.get("/states", async (req, res, next) => {
   const statesWithCities = await Place.findStatesWithCities();
   res.send(statesWithCities);
 });
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const place = await Place.findByPk(req.params.id);
+    if (!place) {
+      res.sendStatus(404);
+    } else {
+      await place.destroy();
+      console.log("DESTROYEDDDDDDDDDDDDD ------->");
+    }
+  } catch (error) {
+    next(error);
+  }
+  done();
+});
 module.exports = router;

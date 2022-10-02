@@ -25,7 +25,6 @@ const Place = db.define("place", {
   },
   nickname: {
     type: Sequelize.VIRTUAL,
-    // defaultValue: true,
     get() {
       let names = this.getDataValue("place_name").split(" ");
       return names.map((name) => name[0].toUpperCase()).join("");
