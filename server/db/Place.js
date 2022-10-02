@@ -18,10 +18,6 @@ const Place = db.define("place", {
   },
 });
 
-Place.findCitiesWithNoParent = () => {
-  console.log("hi");
-};
-
 /**
  * We've created the association for you!
  *
@@ -37,5 +33,14 @@ Place.findCitiesWithNoParent = () => {
 
 Place.belongsTo(Place, { as: "parent" });
 Place.hasMany(Place, { as: "children", foreignKey: "parentId" });
+
+Place.findCitiesWithNoParent = async () => {
+  return await Place.findAll({
+    where: {
+      category: "CITY",
+      parentId: null,
+    },
+  });
+};
 
 module.exports = Place;

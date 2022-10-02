@@ -122,7 +122,7 @@ describe("Tier 1: Basic Fields, Class Methods, GET Routes", () => {
         );
       });
 
-      xit("Place.findCitiesWithNoParent returns all cities with no parentId", async () => {
+      it("Place.findCitiesWithNoParent returns all cities with no parentId", async () => {
         const newYorkState = await Place.create({
           place_name: "new york state",
           category: "STATE",
