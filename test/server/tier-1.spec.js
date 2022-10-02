@@ -69,7 +69,7 @@ describe("Tier 1: Basic Fields, Class Methods, GET Routes", () => {
       });
 
       describe("category", () => {
-        xit('category can be be a "CITY", "STATE", or "COUNTRY"', async () => {
+        it('category can be be a "CITY", "STATE", or "COUNTRY"', async () => {
           const nys = await Place.create({
             place_name: "New York State",
             category: "STATE",
@@ -82,12 +82,12 @@ describe("Tier 1: Basic Fields, Class Methods, GET Routes", () => {
           expect(nyc.category).to.equal("CITY");
         });
 
-        xit('category defaults to "STATE" if not provided', async () => {
+        it('category defaults to "STATE" if not provided', async () => {
           const nys = await Place.create({ place_name: "New York State" });
           expect(nys.category).to.equal("STATE");
         });
 
-        xit("category cannot be null", async () => {
+        it("category cannot be null", async () => {
           try {
             const nys = await Place.create({
               place_name: "New York State",
@@ -100,7 +100,7 @@ describe("Tier 1: Basic Fields, Class Methods, GET Routes", () => {
           }
         });
 
-        xit('category can ONLY be either "CITY", "STATE", "COUNTRY"', async () => {
+        it('category can ONLY be either "CITY", "STATE", "COUNTRY"', async () => {
           try {
             await Place.create({
               place_name: "playground",
@@ -115,7 +115,7 @@ describe("Tier 1: Basic Fields, Class Methods, GET Routes", () => {
     });
 
     describe("Class Method: findCities with no parent", () => {
-      xit("Place.findCitiesWithNoParent is a class method", () => {
+      it("Place.findCitiesWithNoParent is a class method", () => {
         expect(Place.findCitiesWithNoParent).to.be.a(
           "function",
           "findCitiesWithNoParent isn't a class method"

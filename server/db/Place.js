@@ -10,7 +10,17 @@ const Place = db.define("place", {
       notEmpty: true,
     },
   },
+  category: {
+    type: Sequelize.ENUM,
+    values: ["CITY", "STATE", "COUNTRY"],
+    defaultValue: "STATE",
+    allowNull: false,
+  },
 });
+
+Place.findCitiesWithNoParent = () => {
+  console.log("hi");
+};
 
 /**
  * We've created the association for you!
