@@ -1,7 +1,10 @@
-const Sequelize = require('sequelize');
-const db = require('./db');
+const Sequelize = require("sequelize");
+const db = require("./db");
 
-const Place = db.define('place', {
+const Place = db.define("place", {
+  place_name: {
+    type: Sequelize.STRING,
+  },
 });
 
 /**
@@ -14,10 +17,10 @@ const Place = db.define('place', {
  *     NYC   Albany
  * (child)  (child)
  *
- * You can find the parent of a place and the children of a place 
+ * You can find the parent of a place and the children of a place
  */
 
-Place.belongsTo(Place, { as: 'parent' });
-Place.hasMany(Place, { as: 'children', foreignKey: 'parentId' });
+Place.belongsTo(Place, { as: "parent" });
+Place.hasMany(Place, { as: "children", foreignKey: "parentId" });
 
 module.exports = Place;
