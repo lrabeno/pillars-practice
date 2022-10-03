@@ -7,13 +7,21 @@ const {
 //
 
 router.get("/unassigned", async (req, res, next) => {
-  const unassigned = await Place.findCitiesWithNoParent();
-  res.send(unassigned);
+  try {
+    const unassigned = await Place.findCitiesWithNoParent();
+    res.send(unassigned);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/states", async (req, res, next) => {
-  const statesWithCities = await Place.findStatesWithCities();
-  res.send(statesWithCities);
+  try {
+    const statesWithCities = await Place.findStatesWithCities();
+    res.send(statesWithCities);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.delete("/:id", async (req, res, next) => {
@@ -23,11 +31,10 @@ router.delete("/:id", async (req, res, next) => {
       res.sendStatus(404);
     } else {
       await place.destroy();
-      console.log("DESTROYEDDDDDDDDDDDDD ------->");
+      res.sendStatus(204);
     }
   } catch (error) {
     next(error);
   }
-  done();
 });
 module.exports = router;
