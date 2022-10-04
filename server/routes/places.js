@@ -28,11 +28,13 @@ router.delete("/:id", async (req, res, next) => {
   try {
     const place = await Place.findByPk(req.params.id);
     if (!place) {
-      res.sendStatus(404);
-    } else {
-      await place.destroy();
-      res.sendStatus(204);
+      return res.sendStatus(404);
     }
+    // Don't have to await a destroy
+    // If it takes a long time to delete
+    // your data you don't want to wait
+    place.destroy();
+    res.sendStatus(204);
   } catch (error) {
     next(error);
   }
